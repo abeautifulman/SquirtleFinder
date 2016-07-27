@@ -29,7 +29,7 @@ class SquirtleFinder:
         with open('resp.json', 'r') as resp:
             pokemon_locations = load(resp)
         
-        return pokemon_locations['pokemon']
+        self.pokemon = pokemon_locations['pokemon']
 
     def print_name_and_time(self, pokemon):
         print self.id_lookup[pokemon['pokemonId']], datetime.fromtimestamp(int(str(pokemon['expiration_time']))).strftime('%Y-%m-%d %H:%M:%S')
@@ -58,18 +58,12 @@ def main(args):
         
         finder = SquirtleFinder(mylat, mylon) 
         print 'finding some pokemon...'
-        t1 = time()
         finder.request()
-        t2 = time()
-        print str(t2-t1), 'ms for request'
-        
+        print finder.pokemon 
         map(finder.print_name_and_time, finder.pokemon)
         
         print 'getting directions...'
-        t3 = time()
         print_directions(mylat, mylon, finder.pokemon[0])
-        t4 = time()
-        print str(t4-t3), 'ms for request'
         
         return 0
     
