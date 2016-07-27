@@ -32,12 +32,12 @@ class SquirtleFinder:
         return pokemon_locations['pokemon']
 
     def print_name_and_time(self, pokemon):
-        print id_lookup[pokemon['pokemonId']], datetime.fromtimestamp(int(str(pokemon['expiration_time']))).strftime('%Y-%m-%d %H:%M:%S')
+        print self.id_lookup[pokemon['pokemonId']], datetime.fromtimestamp(int(str(pokemon['expiration_time']))).strftime('%Y-%m-%d %H:%M:%S')
 
     def print_directions(lat, lon, pokemon):
-        system('curl https://maps.googleapis.com/maps/api/directions/json\?origin\=' + lat + ',' + lon + '\&destination=' + str(pokemon['latitude']) + ',' + str(pokemon['longitude']) + '\&key\=' + environ['SQUIRTLE_MAPS_KEY'] + ' -o ' + id_lookup[pokemon['pokemonId']] + '_directions.json')  
+        system('curl https://maps.googleapis.com/maps/api/directions/json\?origin\=' + lat + ',' + lon + '\&destination=' + str(pokemon['latitude']) + ',' + str(pokemon['longitude']) + '\&key\=' + environ['SQUIRTLE_MAPS_KEY'] + ' -o ' + self.id_lookup[pokemon['pokemonId']] + '_directions.json')  
 
-        with open(id_lookup[pokemon['pokemonId']] + '_directions.json', 'r') as directions: 
+        with open(self.id_lookup[pokemon['pokemonId']] + '_directions.json', 'r') as directions: 
             print load(directions)[0][u'routes'][u'legs'][u'end_address']
 
 def location():
