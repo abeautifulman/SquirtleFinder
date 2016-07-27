@@ -1,0 +1,109 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJW7OSISfsa4cRgv44NacKkt0",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EiMxODk4IDl0aCBTdCwgQm91bGRlciwgQ08gODAzMDIsIFVTQQ",
+         "types" : [ "route", "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : 40.0184486,
+               "lng" : -105.2825442
+            },
+            "southwest" : {
+               "lat" : 40.01621600000001,
+               "lng" : -105.2840921
+            }
+         },
+         "copyrights" : "Map data ©2016 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "0.2 mi",
+                  "value" : 354
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 69
+               },
+               "end_address" : "1898 9th St, Boulder, CO 80302, USA",
+               "end_location" : {
+                  "lat" : 40.01621600000001,
+                  "lng" : -105.2836173
+               },
+               "start_address" : "1014 Spruce St, Boulder, CO 80302, USA",
+               "start_location" : {
+                  "lat" : 40.0184486,
+                  "lng" : -105.2825442
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "449 ft",
+                        "value" : 137
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 25
+                     },
+                     "end_location" : {
+                        "lat" : 40.0181192,
+                        "lng" : -105.2840921
+                     },
+                     "html_instructions" : "Head \u003cb\u003ewest\u003c/b\u003e on \u003cb\u003eSpruce St\u003c/b\u003e toward \u003cb\u003e10th St\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "ibgsFz~qaSRpAl@bF"
+                     },
+                     "start_location" : {
+                        "lat" : 40.0184486,
+                        "lng" : -105.2825442
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 mi",
+                        "value" : 217
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 44
+                     },
+                     "end_location" : {
+                        "lat" : 40.01621600000001,
+                        "lng" : -105.2836173
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003e9th St\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "g`gsFphraSXIVIXIXGb@GPERCZCHBF?J?R?TC@?HAHCFCb@Kd@K"
+                     },
+                     "start_location" : {
+                        "lat" : 40.0181192,
+                        "lng" : -105.2840921
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "ibgsFz~qaS`AtHp@Sr@Qt@Mn@GPBv@CdBa@"
+         },
+         "summary" : "Spruce St and 9th St",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

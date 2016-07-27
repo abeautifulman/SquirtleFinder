@@ -24,26 +24,26 @@ class SquirtleFinder:
                      --header 'cookie: : __cfduid=d8a92ebe13d807fa8e08fcf0c3f86ce251469297247; app-session=93dvv7u710pm90nbr9c7tv4rf2; cdmu=1469297256589; _ga=GA1.2.1606395141.1469297258; bknx_fa=1469297258354; bknx_ss=1469297258354; cdmblk=0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0' \
                      --header 'postman-token: c65c0be4-67d7-a79d-5600-d' \
                      --header 'referer: https://pokevision.com/' \
-                     --cookie ': __cfduid=d8a92ebe13d807fa8e08fcf0c3f86ce251469297247; app-session=93dvv7u710pm90nbr9c7tv4rf2; cdmu=1469297256589; _ga=GA1.2.1606395141.1469297258; bknx_fa=1469297258354; bknx_ss=1469297258354; cdmblk=0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0' -o resp.json")
+                     --cookie ': __cfduid=d8a92ebe13d807fa8e08fcf0c3f86ce251469297247; app-session=93dvv7u710pm90nbr9c7tv4rf2; cdmu=1469297256589; _ga=GA1.2.1606395141.1469297258; bknx_fa=1469297258354; bknx_ss=1469297258354; cdmblk=0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0' -o locations/resp.json")
         
-        with open('resp.json', 'r') as resp:
+        with open('locations/resp.json', 'r') as resp:
             pokemon_locations = load(resp)
         
         self.pokemon = pokemon_locations['pokemon']
 
     def print_name_and_time(self, pokemon):
-        print self.id_lookup[pokemon['pokemonId']], datetime.fromtimestamp(int(str(pokemon['expiration_time']))).strftime('%Y-%m-%d %H:%M:%S')
+        print str(pokemon['pokemonId']) + ':', self.id_lookup[str(pokemon['pokemonId'])], datetime.fromtimestamp(int(str(pokemon['expiration_time']))).strftime('%Y-%m-%d %H:%M:%S')
 
-    def print_directions(lat, lon, pokemon):
-        system('curl https://maps.googleapis.com/maps/api/directions/json\?origin\=' + lat + ',' + lon + '\&destination=' + str(pokemon['latitude']) + ',' + str(pokemon['longitude']) + '\&key\=' + environ['SQUIRTLE_MAPS_KEY'] + ' -o ' + self.id_lookup[pokemon['pokemonId']] + '_directions.json')  
+    def print_directions(self, lat, lon, pokemon):
+        system('curl https://maps.googleapis.com/maps/api/directions/json\?origin\=' + lat + ',' + lon + '\&destination=' + str(pokemon['latitude']) + ',' + str(pokemon['longitude']) + '\&key\=' + environ['SQUIRTLE_MAPS_KEY'] + ' -o ' + 'locations/' + self.id_lookup[str(pokemon['pokemonId'])] + '_directions.json')  
 
-        with open(self.id_lookup[pokemon['pokemonId']] + '_directions.json', 'r') as directions: 
-            print load(directions)[0][u'routes'][u'legs'][u'end_address']
+        with open('locations/' + self.id_lookup[str(pokemon['pokemonId'])] + '_directions.json', 'r') as directions: 
+            print load(directions)['routes'][0]['legs'][0]['end_address']
 
 def location():
-    system("curl freegeoip.net/json/ -o location.json")
+    system("curl freegeoip.net/json/ -o locations/location.json")
     
-    with open("location.json", "r") as loc_file:
+    with open("locations/location.json", "r") as loc_file:
         loc = load(loc_file)
         return str(loc['latitude']), str(loc['longitude'])
 
@@ -59,14 +59,16 @@ def main(args):
         finder = SquirtleFinder(mylat, mylon) 
         print 'finding some pokemon...'
         finder.request()
-        print finder.pokemon 
         map(finder.print_name_and_time, finder.pokemon)
-        
+        search = raw_input("Enter the id's of any pokemon you want search for, separated by spaces: ").split('_')
         print 'getting directions...'
-        print_directions(mylat, mylon, finder.pokemon[0])
+        for query in search:
+            for pokemon in finder.pokemon:
+                if str(pokemon['pokemonId']) == str(query): 
+                    finder.print_directions(mylat, mylon, finder.pokemon[finder.pokemon.index(pokemon)])
         
         return 0
     
-    except Exception as e: return e
+    except KeyboardInterrupt: return 1 
 
 if __name__=='__main__': exit(main(argv[1:]))
