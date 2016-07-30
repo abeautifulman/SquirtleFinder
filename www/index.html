@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Squirtle Finder</title>
+		<meta name="description" content="Natural Language Form with custom text input and drop-down lists" />
+		<meta name="keywords" content="Natural Language UI, sentence form, text input, contenteditable, html5, css3, jquery" />
+		<meta name="author" content="Codrops" />
+		<link rel="shortcut icon" href="../favicon.ico"> 
+		<link rel="stylesheet" type="text/css" href="css/default.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<script src="js/modernizr.custom.js"></script>
+	</head>
+	<body class="nl-blurred">
+		<div class="container demo-1">
+			<!-- Top Navigation -->
+			<div class="codrops-top clearfix">
+				<a class="codrops-icon codrops-icon-prev" href="http://tympanus.net/Development/MorphingDevices/"><span>Previous Demo</span></a>
+				<span class="right"><a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=15139"><span>Back to the Codrops Article</span></a></span>
+			</div>
+			<header>
+				<h1>Squirtle Finder<span>find squirtles (and other pokemon)</span></h1>	
+			</header>
+			<div class="main clearfix">
+				<form id="nl-form" class="nl-form">
+					I'm looking for
+					<select>
+						<option value="1" selected>any</option>
+						<option value="2">god tier</option>
+						<option value="3">rare</option>
+						<option value="4">aight</option>
+						<option value="2">plebian</option>
+					</select>
+					<br />pokemon at
+					<input type="text" value="" placeholder="this latitude" data-subline="For example: <em>40.0076</em>"/>
+					<br />and
+					<input type="text" value="" placeholder="this longitude" data-subline="For example: <em>105.26559</em>"/>
+					<br />text me at
+					<input type="text" value="" placeholder="this number" data-subline="For example: <em>1234567890</em>"/>
+					<div class="nl-submit-wrap">
+						<button class="nl-submit" type="submit">Subscribe</button>
+					</div>
+					<div class="nl-overlay"></div>
+				</form>
+			</div>
+		</div><!-- /container -->
+		<script src="js/nlform.js"></script>
+		<script>
+			var nlform = new NLForm( document.getElementById( 'nl-form' ) );
+		</script>
+	</body>
+</html>
