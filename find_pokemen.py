@@ -5,7 +5,7 @@ from sys import exit, argv
 from json import load
 from time import time
 from datetime import datetime
-from colorama import Fore
+from colorama import Fore, Back, Style
 
 class SquirtleFinder:
 
@@ -33,7 +33,16 @@ class SquirtleFinder:
         self.pokemon = pokemon_locations['pokemon']
 
     def print_name_and_time(self, pokemon):
-        print str(pokemon['pokemonId']) + ':', self.id_lookup[str(pokemon['pokemonId'])], datetime.fromtimestamp(int(str(pokemon['expiration_time']))).strftime('%Y-%m-%d %H:%M:%S')
+        rarity = int(pokemon['pokemonId'])
+        color = Fore.YELLOW
+        if rarity > 120:
+          color = Fore.GREEN
+        elif rarity > 80:
+          color = Fore.MAGENTA
+        elif rarity > 40:
+          color = Fore.CYAN
+
+        print color + str(pokemon['pokemonId']) + ':', self.id_lookup[str(pokemon['pokemonId'])], datetime.fromtimestamp(int(str(pokemon['expiration_time']))).strftime('%Y-%m-%d %H:%M:%S') + Style.RESET_ALL
 
     def print_directions(self, lat, lon, pokemon):
         system('curl https://maps.googleapis.com/maps/api/directions/json\?origin\=' + lat + ',' + lon + '\&destination=' + str(pokemon['latitude']) + ',' + str(pokemon['longitude']) + '\&key\=' + environ['SQUIRTLE_MAPS_KEY'] + ' -o ' + 'locations/' + self.id_lookup[str(pokemon['pokemonId'])] + '_directions.json')  
