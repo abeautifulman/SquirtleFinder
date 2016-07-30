@@ -4,17 +4,47 @@ from re import sub
 from os import system, environ
 from sys import exit, argv
 from json import load
-from time import time
+from time import time, sleep
 from datetime import datetime
 from dateutil import relativedelta
 from colorama import Fore, Back, Style
 from twilio.rest import TwilioRestClient
+
+class PokePanopticon:
+    
+    def __init__(self, lat, lon):
+        self.finder = SquirtleFinder(lat, lon)
+        self.lat = lat
+        self.lon = lon
+        self.search()
+
+    def search(self):
+        try:
+            while True:
+                self.finder.request()
+                if environ.get('SQUIRTLE_MAPS_KEY'):
+                    for pokemon in self.finder.ranks['god_tier'] + self.finder.ranks['rare']:
+                        for data in self.finder.pokemon:
+                            if str(data['pokemonId']) == str(pokemon):
+                                self.finder.send_txt(self.finder.get_directions(self.lat, self.lon, self.finder.pokemon[self.finder.pokemon.index(data)]))
+                else:
+                    print Fore.RED + Errors.googleAPIERROR
+                    return 1
+                sleep(60)
+
+        except KeyboardInterrupt: return 
+        
 
 class SquirtleFinder:
 
     txt_sid = environ['SQUIRTLE_TEXT_SID']
     txt_auth_token = environ['SQUIRTLE_TEXT_TOKEN']
     txt_client = TwilioRestClient(txt_sid, txt_auth_token)
+
+    ranks = {}
+    for rank in ['plebian', 'aight', 'rare', 'god_tier']:
+        with open('ranks/' +rank + '.csv', 'r') as rank_file:
+            ranks[rank] = rank_file.readline().split(',')
 
     with open('PokemonDictionary.json', 'r') as pokemon_dict:
         id_lookup = load(pokemon_dict)
@@ -45,14 +75,11 @@ class SquirtleFinder:
         return relativedelta.relativedelta(expiration_time, current_time)
 
     def print_name_and_time(self, pokemon):
-        rarity = int(pokemon['pokemonId'])
+        rarity = str(pokemon['pokemonId'])
         color = Fore.YELLOW
-        if rarity > 120:
-          color = Fore.GREEN
-        elif rarity > 80:
-          color = Fore.MAGENTA
-        elif rarity > 40:
-          color = Fore.CYAN
+        if rarity in self.ranks['plebian']: color = Fore.GREEN
+        elif rarity in self.ranks['aight']: color = Fore.MAGENTA
+        elif rarity in self.ranks['rare']:  color = Fore.CYAN
         
         time_remaining = self.remaining_time(pokemon)
         
@@ -76,9 +103,9 @@ class SquirtleFinder:
     def send_txt(self, txt):
         message = self.txt_client.messages.create(to=environ['MY_PHONE'], from_=environ['SQUIRTLE_PHONE'],
                                                   body=str('There is a ' + txt['pokemon'] + ' nearby!\n' +
-                                                       'It will be there for ' + str(txt['time_remaining'].minutes) + ' minutes and ' + str(txt['time_remaining'].seconds) + 'seconds.\n' +
-                                                       'It is at ' + txt['address'] + '\n' +
-                                                       '\n'.join(txt['instructions'])))
+                                                       'It will be there for ' + str(txt['time_remaining'].minutes) + ' minutes and ' + str(txt['time_remaining'].seconds) + ' seconds.\n' +
+                                                       'It is at ' + txt['address'] )) #+ '\n' +
+                                                       #'\n'.join(txt['instructions'])))
 
 def location():
     system("curl freegeoip.net/json/ -o locations/location.json")
@@ -87,11 +114,7 @@ def location():
         loc = load(loc_file)
         return str(loc['latitude']), str(loc['longitude'])
 
-#class errors():
-
- # def __init__():
-
-class errors():
+class Errors():
   googleAPIERROR = "SquirtleFinder requires the use of environement variables" \
                    " in order to interact with the google maps API."           \
                    "\nSee the README for more information."
@@ -104,14 +127,23 @@ def check_for_text():
     print message.body
 
 def main(args):
+    if raw_input('Should I find your location? (y/n): ') == 'y': mylat, mylon = location()
+    elif (environ.get('SQUIRTLE_MAPS_LAT') and environ.get('SQUIRTLE_MAPS_LON')):
+        mylat = environ['SQUIRTLE_MAPS_LAT']
+        mylon= environ['SQUIRTLE_MAPS_LON']
+    else:
+      print Fore.RED + Errors.googleAPIERROR
+      return 1
+    PokePanopticon(mylat, mylon)
+    '''
     try:
         if raw_input('Should I find your location? (y/n): ') == 'y': mylat, mylon = location()
         elif (environ.get('SQUIRTLE_MAPS_LAT') and environ.get('SQUIRTLE_MAPS_LON')):
             mylat = environ['SQUIRTLE_MAPS_LAT']
             mylon= environ['SQUIRTLE_MAPS_LON']
         else:
-          print Fore.RED + errors.googleAPIERROR
-          exit(1)
+          print Fore.RED + Errors.googleAPIERROR
+          return 1
         
         finder = SquirtleFinder(mylat, mylon) 
         print 'finding some pokemon...'
@@ -126,11 +158,12 @@ def main(args):
                   if str(pokemon['pokemonId']) == str(query): 
                      finder.send_txt(finder.get_directions(mylat, mylon, finder.pokemon[finder.pokemon.index(pokemon)]))
         else:
-          print Fore.RED + errors.googleAPIERROR
+          print Fore.RED + Errors.googleAPIERROR
           return 1
         
         return 0
     
     except KeyboardInterrupt: return 1 
-
+    '''
+    
 if __name__=='__main__': exit(main(argv[1:]))
