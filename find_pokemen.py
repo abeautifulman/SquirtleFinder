@@ -69,11 +69,12 @@ class errors():
 def main(args):
     try:
         if raw_input('Should I find your location? (y/n): ') == 'y': mylat, mylon = location()
-        else:
-            print 'You can also set the SQUIRTLE_MAPS_LAT and SQUIRTLE_MAPS_LON shell variables.' 
-            # TODO: what happens when this breaks return 1
+        elif (environ.get('SQUIRTLE_MAPS_LAT') and environ.get('SQUIRTLE_MAPS_LON')):
             mylat = environ['SQUIRTLE_MAPS_LAT']
             mylon= environ['SQUIRTLE_MAPS_LON']
+        else:
+          print Fore.RED + errors.googleAPIERROR
+          exit(1)
         
         finder = SquirtleFinder(mylat, mylon) 
         print 'finding some pokemon...'
@@ -89,6 +90,8 @@ def main(args):
                      finder.print_directions(mylat, mylon, finder.pokemon[finder.pokemon.index(pokemon)])
         else:
           print Fore.RED + errors.googleAPIERROR
+          exit(1)
+
         return 0
     
     except KeyboardInterrupt: return 1 
