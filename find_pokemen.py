@@ -5,6 +5,7 @@ from sys import exit, argv
 from json import load
 from time import time
 from datetime import datetime
+from colorama import Fore
 
 class SquirtleFinder:
 
@@ -47,6 +48,15 @@ def location():
         loc = load(loc_file)
         return str(loc['latitude']), str(loc['longitude'])
 
+#class errors():
+
+ # def __init__():
+
+class errors():
+  googleAPIERROR = "SquirtleFinder requires the use of environement variables" \
+                   " in order to interact with the google maps API."           \
+                   "\nSee the README for more information."
+
 def main(args):
     try:
         if raw_input('Should I find your location? (y/n): ') == 'y': mylat, mylon = location()
@@ -61,12 +71,15 @@ def main(args):
         finder.request()
         map(finder.print_name_and_time, finder.pokemon)
         search = raw_input("Enter the id's of any pokemon you want search for, separated by spaces: ").split('_')
+
         print 'getting directions...'
-        for query in search:
-            for pokemon in finder.pokemon:
-                if str(pokemon['pokemonId']) == str(query): 
-                    finder.print_directions(mylat, mylon, finder.pokemon[finder.pokemon.index(pokemon)])
-        
+        if environ.get('SQUIRTLE_MAPS_KEY'):
+          for query in search:
+              for pokemon in finder.pokemon:
+                  if str(pokemon['pokemonId']) == str(query): 
+                     finder.print_directions(mylat, mylon, finder.pokemon[finder.pokemon.index(pokemon)])
+        else:
+          print Fore.RED + errors.googleAPIERROR
         return 0
     
     except KeyboardInterrupt: return 1 
