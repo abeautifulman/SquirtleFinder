@@ -7,7 +7,7 @@
       },
       {
          "geocoder_status" : "OK",
-         "place_id" : "EiMxODk4IDl0aCBTdCwgQm91bGRlciwgQ08gODAzMDIsIFVTQQ",
+         "place_id" : "EiQxNzAxIDEzdGggU3QsIEJvdWxkZXIsIENPIDgwMzAyLCBVU0E",
          "types" : [ "route", "street_address" ]
       }
    ],
@@ -16,10 +16,10 @@
          "bounds" : {
             "northeast" : {
                "lat" : 40.0184486,
-               "lng" : -105.2825442
+               "lng" : -105.2773457
             },
             "southwest" : {
-               "lat" : 40.01621600000001,
+               "lat" : 40.01315950000001,
                "lng" : -105.2840921
             }
          },
@@ -27,17 +27,17 @@
          "legs" : [
             {
                "distance" : {
-                  "text" : "0.2 mi",
-                  "value" : 354
+                  "text" : "0.8 mi",
+                  "value" : 1304
                },
                "duration" : {
-                  "text" : "1 min",
-                  "value" : 69
+                  "text" : "4 mins",
+                  "value" : 238
                },
-               "end_address" : "1898 9th St, Boulder, CO 80302, USA",
+               "end_address" : "1701 13th St, Boulder, CO 80302, USA",
                "end_location" : {
-                  "lat" : 40.01621600000001,
-                  "lng" : -105.2836173
+                  "lat" : 40.0149584,
+                  "lng" : -105.2775504
                },
                "start_address" : "1014 Spruce St, Boulder, CO 80302, USA",
                "start_location" : {
@@ -70,25 +70,73 @@
                   },
                   {
                      "distance" : {
-                        "text" : "0.1 mi",
-                        "value" : 217
+                        "text" : "0.3 mi",
+                        "value" : 563
                      },
                      "duration" : {
-                        "text" : "1 min",
-                        "value" : 44
+                        "text" : "2 mins",
+                        "value" : 94
                      },
                      "end_location" : {
-                        "lat" : 40.01621600000001,
-                        "lng" : -105.2836173
+                        "lat" : 40.01315950000001,
+                        "lng" : -105.283425
                      },
                      "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003e9th St\u003c/b\u003e",
                      "maneuver" : "turn-left",
                      "polyline" : {
-                        "points" : "g`gsFphraSXIVIXIXGb@GPERCZCHBF?J?R?TC@?HAHCFCb@Kd@K"
+                        "points" : "g`gsFphraSXIVIXIXGb@GPERCZCHBF?J?R?TC@?HAHCFCb@Kd@K\\IZIv@S|@SRG\\BPEz@Jj@H\\BTBPBD?v@H`@BL?NANAr@M"
                      },
                      "start_location" : {
                         "lat" : 40.0181192,
                         "lng" : -105.2840921
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 mi",
+                        "value" : 535
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 94
+                     },
+                     "end_location" : {
+                        "lat" : 40.0143592,
+                        "lng" : -105.2773457
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eArapahoe Ave\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "gafsFjdraSCKGq@EY_@{CMeA{@mHI{@M{@WwBMoAEUOuAAMMeAAOCQAMAOEU"
+                     },
+                     "start_location" : {
+                        "lat" : 40.01315950000001,
+                        "lng" : -105.283425
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "226 ft",
+                        "value" : 69
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 25
+                     },
+                     "end_location" : {
+                        "lat" : 40.0149584,
+                        "lng" : -105.2775504
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003e13th St\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the left\u003c/div\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "whfsFl~paSIBmBb@"
+                     },
+                     "start_location" : {
+                        "lat" : 40.0143592,
+                        "lng" : -105.2773457
                      },
                      "travel_mode" : "DRIVING"
                   }
@@ -98,9 +146,9 @@
             }
          ],
          "overview_polyline" : {
-            "points" : "ibgsFz~qaS`AtHp@Sr@Qt@Mn@GPBv@CdBa@"
+            "points" : "ibgsFz~qaS`AtHp@Sr@Qt@Mn@GPBv@CvEiApA[\\BPEfBTr@FpBP\\AbAOq@sFaBkNqAiLC]EUIBmBb@"
          },
-         "summary" : "Spruce St and 9th St",
+         "summary" : "9th St and Arapahoe Ave",
          "warnings" : [],
          "waypoint_order" : []
       }

@@ -1,13 +1,20 @@
 #!/usr/bin/env python2
 
+from re import sub
 from os import system, environ
 from sys import exit, argv
 from json import load
 from time import time
 from datetime import datetime
+from dateutil import relativedelta
 from colorama import Fore, Back, Style
+from twilio.rest import TwilioRestClient
 
 class SquirtleFinder:
+
+    txt_sid = environ['SQUIRTLE_TEXT_SID']
+    txt_auth_token = environ['SQUIRTLE_TEXT_TOKEN']
+    txt_client = TwilioRestClient(txt_sid, txt_auth_token)
 
     with open('PokemonDictionary.json', 'r') as pokemon_dict:
         id_lookup = load(pokemon_dict)
@@ -32,6 +39,11 @@ class SquirtleFinder:
         
         self.pokemon = pokemon_locations['pokemon']
 
+    def remaining_time(self, pokemon):
+        current_time = datetime.fromtimestamp(int(time()))
+        expiration_time = datetime.fromtimestamp(int(str(pokemon['expiration_time'])))
+        return relativedelta.relativedelta(expiration_time, current_time)
+
     def print_name_and_time(self, pokemon):
         rarity = int(pokemon['pokemonId'])
         color = Fore.YELLOW
@@ -41,14 +53,32 @@ class SquirtleFinder:
           color = Fore.MAGENTA
         elif rarity > 40:
           color = Fore.CYAN
+        
+        time_remaining = self.remaining_time(pokemon)
+        
+        print color + str(pokemon['pokemonId']) + ': ' + self.id_lookup[str(pokemon['pokemonId'])], time_remaining.minutes, 'minutes,', time_remaining.seconds, 'seconds' + Style.RESET_ALL
+        
+        #print color + str(pokemon['pokemonId']) + ': ' + self.id_lookup[str(pokemon['pokemonId'])], datetime.fromtimestamp(int(str(pokemon['expiration_time']))).strftime('%Y-%m-%d %H:%M:%S') + Style.RESET_ALL
 
-        print color + str(pokemon['pokemonId']) + ':', self.id_lookup[str(pokemon['pokemonId'])], datetime.fromtimestamp(int(str(pokemon['expiration_time']))).strftime('%Y-%m-%d %H:%M:%S') + Style.RESET_ALL
+    def get_directions(self, lat, lon, pokemon):
+        txt = {'pokemon'       : self.id_lookup[str(pokemon['pokemonId'])],
+               'time_remaining': self.remaining_time(pokemon)}
 
-    def print_directions(self, lat, lon, pokemon):
         system('curl https://maps.googleapis.com/maps/api/directions/json\?origin\=' + lat + ',' + lon + '\&destination=' + str(pokemon['latitude']) + ',' + str(pokemon['longitude']) + '\&key\=' + environ['SQUIRTLE_MAPS_KEY'] + ' -o ' + 'locations/' + self.id_lookup[str(pokemon['pokemonId'])] + '_directions.json')  
 
         with open('locations/' + self.id_lookup[str(pokemon['pokemonId'])] + '_directions.json', 'r') as directions: 
-            print load(directions)['routes'][0]['legs'][0]['end_address']
+            json = load(directions)
+            txt['address'] = str(json['routes'][0]['legs'][0]['end_address'])
+            txt['instructions'] = [sub('<[^<]+?>', '', str(instruction['html_instructions'])) for instruction in json['routes'][0]['legs'][0]['steps']]
+
+        return txt
+
+    def send_txt(self, txt):
+        message = self.txt_client.messages.create(to=environ['MY_PHONE'], from_=environ['SQUIRTLE_PHONE'],
+                                                  body=str('There is a ' + txt['pokemon'] + ' nearby!\n' +
+                                                       'It will be there for ' + str(txt['time_remaining'].minutes) + ' minutes and ' + str(txt['time_remaining'].seconds) + 'seconds.\n' +
+                                                       'It is at ' + txt['address'] + '\n' +
+                                                       '\n'.join(txt['instructions'])))
 
 def location():
     system("curl freegeoip.net/json/ -o locations/location.json")
@@ -65,6 +95,13 @@ class errors():
   googleAPIERROR = "SquirtleFinder requires the use of environement variables" \
                    " in order to interact with the google maps API."           \
                    "\nSee the README for more information."
+
+def check_for_text():
+    account_sid = environ['SQUIRTLE_TEXT_SID']
+    auth_token  = environ['SQUIRTLE_TEXT_TOKEN']
+    client = TwilioRestClient(account_sid, auth_token)
+    message = client.messages.list()[1]
+    print message.body
 
 def main(args):
     try:
@@ -87,11 +124,11 @@ def main(args):
           for query in search:
               for pokemon in finder.pokemon:
                   if str(pokemon['pokemonId']) == str(query): 
-                     finder.print_directions(mylat, mylon, finder.pokemon[finder.pokemon.index(pokemon)])
+                     finder.send_txt(finder.get_directions(mylat, mylon, finder.pokemon[finder.pokemon.index(pokemon)]))
         else:
           print Fore.RED + errors.googleAPIERROR
-          exit(1)
-
+          return 1
+        
         return 0
     
     except KeyboardInterrupt: return 1 

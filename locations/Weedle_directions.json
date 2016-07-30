@@ -7,37 +7,37 @@
       },
       {
          "geocoder_status" : "OK",
-         "place_id" : "ChIJfWh6uCbsa4cRuw5WMurO-zQ",
-         "types" : [ "route" ]
+         "place_id" : "ChIJL7ZjLybsa4cRYXq7A7gQQ1I",
+         "types" : [ "street_address" ]
       }
    ],
    "routes" : [
       {
          "bounds" : {
             "northeast" : {
-               "lat" : 40.0184486,
-               "lng" : -105.2825442
+               "lat" : 40.0199082,
+               "lng" : -105.2783141
             },
             "southwest" : {
-               "lat" : 40.0165866,
-               "lng" : -105.2840921
+               "lat" : 40.0168573,
+               "lng" : -105.2825442
             }
          },
          "copyrights" : "Map data ©2016 Google",
          "legs" : [
             {
                "distance" : {
-                  "text" : "0.2 mi",
-                  "value" : 369
+                  "text" : "0.5 mi",
+                  "value" : 875
                },
                "duration" : {
-                  "text" : "2 mins",
-                  "value" : 90
+                  "text" : "4 mins",
+                  "value" : 232
                },
-               "end_address" : "Lawry Ln, Boulder, CO 80302, USA",
+               "end_address" : "1970 13th St, Boulder, CO 80302, USA",
                "end_location" : {
-                  "lat" : 40.0167199,
-                  "lng" : -105.2830881
+                  "lat" : 40.0180234,
+                  "lng" : -105.2786451
                },
                "start_address" : "1014 Spruce St, Boulder, CO 80302, USA",
                "start_location" : {
@@ -47,20 +47,20 @@
                "steps" : [
                   {
                      "distance" : {
-                        "text" : "449 ft",
-                        "value" : 137
+                        "text" : "246 ft",
+                        "value" : 75
                      },
                      "duration" : {
                         "text" : "1 min",
-                        "value" : 25
+                        "value" : 15
                      },
                      "end_location" : {
-                        "lat" : 40.0181192,
-                        "lng" : -105.2840921
+                        "lat" : 40.0186494,
+                        "lng" : -105.2817045
                      },
-                     "html_instructions" : "Head \u003cb\u003ewest\u003c/b\u003e on \u003cb\u003eSpruce St\u003c/b\u003e toward \u003cb\u003e10th St\u003c/b\u003e",
+                     "html_instructions" : "Head \u003cb\u003eeast\u003c/b\u003e on \u003cb\u003eSpruce St\u003c/b\u003e toward \u003cb\u003e11th St\u003c/b\u003e",
                      "polyline" : {
-                        "points" : "ibgsFz~qaSRpAl@bF"
+                        "points" : "ibgsFz~qaSg@gD"
                      },
                      "start_location" : {
                         "lat" : 40.0184486,
@@ -70,49 +70,121 @@
                   },
                   {
                      "distance" : {
-                        "text" : "0.1 mi",
-                        "value" : 174
+                        "text" : "371 ft",
+                        "value" : 113
                      },
                      "duration" : {
                         "text" : "1 min",
-                        "value" : 37
+                        "value" : 24
                      },
                      "end_location" : {
-                        "lat" : 40.0165866,
-                        "lng" : -105.2837438
+                        "lat" : 40.019642,
+                        "lng" : -105.282003
                      },
-                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003e9th St\u003c/b\u003e",
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e at the 1st cross street onto \u003cb\u003e11th St\u003c/b\u003e",
                      "maneuver" : "turn-left",
                      "polyline" : {
-                        "points" : "g`gsFphraSXIVIXIXGb@GPERCZCHBF?J?R?TC@?HAHCFC"
+                        "points" : "qcgsFryqaS}Cp@g@H"
                      },
                      "start_location" : {
-                        "lat" : 40.0181192,
-                        "lng" : -105.2840921
+                        "lat" : 40.0186494,
+                        "lng" : -105.2817045
                      },
                      "travel_mode" : "DRIVING"
                   },
                   {
                      "distance" : {
-                        "text" : "190 ft",
-                        "value" : 58
+                        "text" : "364 ft",
+                        "value" : 111
                      },
                      "duration" : {
                         "text" : "1 min",
-                        "value" : 28
+                        "value" : 26
                      },
                      "end_location" : {
-                        "lat" : 40.0167199,
-                        "lng" : -105.2830881
+                        "lat" : 40.0199082,
+                        "lng" : -105.2807504
                      },
-                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eLawry Ln\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the left\u003c/div\u003e",
-                     "maneuver" : "turn-left",
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003ePine St\u003c/b\u003e",
+                     "maneuver" : "turn-right",
                      "polyline" : {
-                        "points" : "uvfsFjfraSYaC"
+                        "points" : "wigsFn{qaSu@yF"
                      },
                      "start_location" : {
-                        "lat" : 40.0165866,
-                        "lng" : -105.2837438
+                        "lat" : 40.019642,
+                        "lng" : -105.282003
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 mi",
+                        "value" : 351
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 78
+                     },
+                     "end_location" : {
+                        "lat" : 40.0168573,
+                        "lng" : -105.2796932
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e at the 1st cross street onto \u003cb\u003eBroadway\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "mkgsFtsqaSjEgAdBa@dBa@l@Or@Qh@M|@W"
+                     },
+                     "start_location" : {
+                        "lat" : 40.0199082,
+                        "lng" : -105.2807504
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "400 ft",
+                        "value" : 122
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 47
+                     },
+                     "end_location" : {
+                        "lat" : 40.0171369,
+                        "lng" : -105.2783141
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eWalnut St\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "kxfsF`mqaSCQQgA]iDAEAI"
+                     },
+                     "start_location" : {
+                        "lat" : 40.0168573,
+                        "lng" : -105.2796932
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "338 ft",
+                        "value" : 103
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 42
+                     },
+                     "end_location" : {
+                        "lat" : 40.0180234,
+                        "lng" : -105.2786451
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003e13th St\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the left\u003c/div\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "czfsFldqaSu@PA@EDGBa@JgAX"
+                     },
+                     "start_location" : {
+                        "lat" : 40.0171369,
+                        "lng" : -105.2783141
                      },
                      "travel_mode" : "DRIVING"
                   }
@@ -122,9 +194,9 @@
             }
          ],
          "overview_polyline" : {
-            "points" : "ibgsFz~qaS`AtHp@Sr@Qt@Mn@GPBv@CREFCYaC"
+            "points" : "ibgsFz~qaSg@gD}Cp@g@Hu@yFpHiBrCq@|A_@|@WCQQgA]iDCOw@RMHiBd@"
          },
-         "summary" : "Spruce St and 9th St",
+         "summary" : "Broadway",
          "warnings" : [],
          "waypoint_order" : []
       }
